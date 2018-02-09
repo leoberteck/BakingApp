@@ -1,6 +1,7 @@
 package com.example.leonardo.bakingapp.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.util.DisplayMetrics;
 
 import com.example.leonardo.bakingapp.BR;
 import com.example.leonardo.bakingapp.R;
+import com.example.leonardo.bakingapp.api.entity.Recipe;
 import com.example.leonardo.bakingapp.presenter.impl.RecipeListPresenter;
 import com.example.leonardo.bakingapp.presenter.interfaces.RecipeListMVP;
 
@@ -35,5 +37,12 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListM
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         return Math.round(dpWidth / 300);
+    }
+
+    @Override
+    public void showRecipeDetails(Recipe recipe) {
+        Intent intent = new Intent(this, RecipeDetailActivity.class);
+        intent.putExtra(RecipeDetailActivity.RECIPE_EXTRA, recipe);
+        startActivity(intent);
     }
 }

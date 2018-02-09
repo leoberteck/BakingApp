@@ -4,4 +4,7 @@
     <string name="different_steps">Different Steps</string>
     <string name="share">Share</string>
     <string name="view_recipe">View Recipe</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="next">next</string>
+    <string name="back">back</string>
 </resources>

@@ -42,7 +42,9 @@ public class RecipeListPresenter extends BaseObservable implements RecipeListPre
 
     @Override
     public void onViewRecipeClick(Recipe recipe) {
-        //TODO: implement view recipe logic
+        if(activity != null){
+            activity.showRecipeDetails(recipe);
+        }
     }
 
     @Override

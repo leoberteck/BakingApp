@@ -13,4 +13,9 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
+    <style name="ImportanceText.Medium" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
 </resources>

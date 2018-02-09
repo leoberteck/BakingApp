@@ -38,7 +38,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
                 , parent
                 , false
         );
-        ViewHolder viewHolder = new ViewHolder(binding.getRoot(), binding, listener);
+        ViewHolder viewHolder = new ViewHolder(binding.getRoot(), listener);
         binding.setViewHolder(viewHolder);
         return viewHolder;
     }
@@ -61,8 +61,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         @NonNull
-        private RecipeItemBinding recipeItemBinding;
-        @NonNull
         private View itemView;
         @Nullable
         private OnRecipeClickListener listener;
@@ -74,10 +72,9 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
 
         private Recipe recipe;
 
-        public ViewHolder(@NonNull View itemView, @NonNull RecipeItemBinding recipeItemBinding, @Nullable OnRecipeClickListener listener) {
+        public ViewHolder(@NonNull View itemView, @Nullable OnRecipeClickListener listener) {
             super(itemView);
             this.itemView = itemView;
-            this.recipeItemBinding = recipeItemBinding;
             this.listener = listener;
 
             imageViewThumbNail = itemView.findViewById(R.id.imageView_recipe_thumb);
@@ -97,6 +94,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
 
 
         public void bind(Recipe recipe){
+            this.recipe = recipe;
             String thumb = recipe.getDefaultThumbnailUri();
             if(thumb != null){
                 Glide.with(itemView).load(
