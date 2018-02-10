@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.media.session.MediaSessionCompat;
 
-import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.ExoPlayer;
 
 public interface RecipeStepMVP {
 
@@ -15,7 +15,7 @@ public interface RecipeStepMVP {
         void setPresenter(RecipeStepPresenterInterface presenter);
     }
 
-    interface RecipeStepPresenterInterface extends BasePresenterInterface, Player.EventListener {
+    interface RecipeStepPresenterInterface extends BasePresenterInterface, ExoPlayer.EventListener {
 
         void setFragment(RecipeStepFragmentInterface fragment);
 

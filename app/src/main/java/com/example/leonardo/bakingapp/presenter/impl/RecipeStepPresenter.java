@@ -13,8 +13,7 @@ import android.view.View;
 import com.example.leonardo.bakingapp.api.entity.Step;
 import com.example.leonardo.bakingapp.presenter.interfaces.RecipeStepMVP;
 import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.PlaybackParameters;
-import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
@@ -108,10 +107,6 @@ public class RecipeStepPresenter extends BaseObservable implements RecipeStepMVP
         mMediaSession.setPlaybackState(mStateBuilder.build());
         mMediaSession.setCallback(callback);
         mMediaSession.setActive(true);
-        mMediaSession.setPlaybackState(
-            mStateBuilder.setState(PlaybackStateCompat.STATE_PLAYING, position, 1f)
-            .build()
-        );
     }
 
     @Override
@@ -124,14 +119,29 @@ public class RecipeStepPresenter extends BaseObservable implements RecipeStepMVP
     }
 
     @Override
+    public void onTimelineChanged(Timeline timeline, Object manifest) {
+
+    }
+
+    @Override
+    public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+    }
+
+    @Override
+    public void onLoadingChanged(boolean isLoading) {
+
+    }
+
+    @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         if(mMediaSession != null){
-            if((playbackState == Player.STATE_READY) && playWhenReady){
+            if((playbackState == ExoPlayer.STATE_READY) && playWhenReady){
                 mStateBuilder.setState(
                         PlaybackStateCompat.STATE_PLAYING
                         , getCurrentPlaybackPosition()
                         , 1f);
-            } else if((playbackState == Player.STATE_READY)){
+            } else if((playbackState == ExoPlayer.STATE_READY)){
                 mStateBuilder.setState(
                         PlaybackStateCompat.STATE_PAUSED
                         , getCurrentPlaybackPosition()
@@ -141,36 +151,17 @@ public class RecipeStepPresenter extends BaseObservable implements RecipeStepMVP
         }
     }
 
+    @Override
+    public void onPlayerError(ExoPlaybackException error) {
+
+    }
+
+    @Override
+    public void onPositionDiscontinuity() {
+
+    }
+
     private long getCurrentPlaybackPosition(){
         return mMediaSession.getController().getPlaybackState().getPosition();
     }
-
-    //region not implemented methods
-    @Override
-    public void onTimelineChanged(Timeline timeline, Object manifest) {}
-
-    @Override
-    public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {}
-
-    @Override
-    public void onLoadingChanged(boolean isLoading) {}
-
-    @Override
-    public void onRepeatModeChanged(int repeatMode) {}
-
-    @Override
-    public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {}
-
-    @Override
-    public void onPlayerError(ExoPlaybackException error) {}
-
-    @Override
-    public void onPositionDiscontinuity(int reason) {}
-
-    @Override
-    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {}
-
-    @Override
-    public void onSeekProcessed(){}
-    //endregion
 }

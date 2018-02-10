@@ -52,7 +52,7 @@ public class RecipeStepDetailFragment extends Fragment implements RecipeStepMVP.
             Uri uri = presenter.getMediaUri();
             if(uri != null){
                 initPlayer(presenter.getMediaUri());
-                presenter.initMediaSession(getContext(), TAG, new StepMediaCallback());
+                //presenter.initMediaSession(getContext(), TAG, new StepMediaCallback());
             }
         }
     }
@@ -66,14 +66,10 @@ public class RecipeStepDetailFragment extends Fragment implements RecipeStepMVP.
             , container
             , false
         );
-        binding.setPresenter(presenter);
         View view = binding.getRoot();
         mPlayerView = view.findViewById(R.id.mediaPlayerView);
-        Uri uri = presenter.getMediaUri();
-        if(uri != null){
-            initPlayer(presenter.getMediaUri());
-            presenter.initMediaSession(getContext(), TAG, new StepMediaCallback());
-        }
+        presenter.setFragment(this);
+        this.setPresenter(presenter);
         return view;
     }
 
@@ -87,20 +83,23 @@ public class RecipeStepDetailFragment extends Fragment implements RecipeStepMVP.
             // Create an instance of the ExoPlayer.
             TrackSelector trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
-            mExoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector, loadControl);
+            mExoPlayer = ExoPlayerFactory.newSimpleInstance(
+                getActivity()
+                , trackSelector
+                , loadControl
+            );
             mPlayerView.setPlayer(mExoPlayer);
 
             // Set the ExoPlayer.EventListener to this activity.
-            mExoPlayer.addListener(presenter);
+            //mExoPlayer.addListener(presenter);
 
             // Prepare the MediaSource.
-            String userAgent = Util.getUserAgent(getContext(), "ClassicalMusicQuiz");
-
-            ExtractorMediaSource.Factory factory = new ExtractorMediaSource.Factory(
-                new DefaultDataSourceFactory(getContext(), userAgent)
-            );
-            factory.setExtractorsFactory(new DefaultExtractorsFactory());
-            MediaSource mediaSource = factory.createMediaSource(mediaUri);
+            String userAgent = Util.getUserAgent(getContext(), "BakingApp");
+            MediaSource mediaSource = new ExtractorMediaSource(
+                mediaUri
+                , new DefaultDataSourceFactory(getActivity(), userAgent)
+                , new DefaultExtractorsFactory()
+                , null, null);
             mExoPlayer.prepare(mediaSource);
         }
     }
