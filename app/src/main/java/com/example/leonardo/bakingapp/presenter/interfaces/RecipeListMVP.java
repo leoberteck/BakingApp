@@ -1,23 +1,24 @@
 package com.example.leonardo.bakingapp.presenter.interfaces;
 
 
-import android.databinding.Bindable;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.leonardo.bakingapp.api.entity.Recipe;
+import com.example.leonardo.bakingapp.util.SimpleIdlingResource;
 
 public interface RecipeListMVP {
 
     interface RecipeListActivity {
         void showRecipeDetails(Recipe recipe);
+
+        void shareRecipe(String s);
+
+        void setAdapter(RecyclerView.Adapter recipeListAdapter);
     }
 
     interface RecipeListPresenterInterface extends BasePresenterInterface {
-        @Bindable
-        RecyclerView.Adapter<?> getAdapter();
-
         void setActivity(RecipeListActivity activity);
 
-        void loadRecipes();
+        void loadRecipes(SimpleIdlingResource idlingResource);
     }
 }
