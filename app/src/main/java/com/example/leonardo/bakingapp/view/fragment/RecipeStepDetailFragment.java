@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +51,6 @@ public class RecipeStepDetailFragment extends Fragment implements RecipeStepMVP.
             Uri uri = presenter.getMediaUri();
             if(uri != null){
                 initPlayer(presenter.getMediaUri());
-                //presenter.initMediaSession(getContext(), TAG, new StepMediaCallback());
             }
         }
     }
@@ -67,7 +65,7 @@ public class RecipeStepDetailFragment extends Fragment implements RecipeStepMVP.
             , false
         );
         View view = binding.getRoot();
-        mPlayerView = view.findViewById(R.id.mediaPlayerView);
+        mPlayerView = view.findViewById(R.id.step_media_player_view);
         presenter.setFragment(this);
         this.setPresenter(presenter);
         return view;
@@ -111,33 +109,10 @@ public class RecipeStepDetailFragment extends Fragment implements RecipeStepMVP.
     }
 
     private void releasePlayer(){
-        presenter.releaseSession();
         if(mExoPlayer != null){
             mExoPlayer.stop();
             mExoPlayer.release();
             mExoPlayer = null;
-        }
-    }
-
-    private class StepMediaCallback extends MediaSessionCompat.Callback{
-        @Override
-        public void onPlay() {
-            mExoPlayer.setPlayWhenReady(true);
-        }
-
-        @Override
-        public void onPause() {
-            mExoPlayer.setPlayWhenReady(false);
-        }
-
-        @Override
-        public void onSeekTo(long pos) {
-            mExoPlayer.seekTo(pos);
-        }
-
-        @Override
-        public void onSkipToPrevious() {
-            onSeekTo(0);
         }
     }
 }

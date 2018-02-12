@@ -1,12 +1,8 @@
 package com.example.leonardo.bakingapp.presenter.interfaces;
 
-import android.content.Context;
 import android.databinding.Bindable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.v4.media.session.MediaSessionCompat;
-
-import com.google.android.exoplayer2.ExoPlayer;
 
 public interface RecipeStepMVP {
 
@@ -15,7 +11,7 @@ public interface RecipeStepMVP {
         void setPresenter(RecipeStepPresenterInterface presenter);
     }
 
-    interface RecipeStepPresenterInterface extends BasePresenterInterface, ExoPlayer.EventListener {
+    interface RecipeStepPresenterInterface extends BasePresenterInterface {
 
         void setFragment(RecipeStepFragmentInterface fragment);
 
@@ -34,10 +30,6 @@ public interface RecipeStepMVP {
 
         @Bindable
         StepNavigationClickListener getListener();
-
-        void initMediaSession(Context context, String tag, MediaSessionCompat.Callback callback);
-
-        void releaseSession();
     }
 
     interface StepNavigationClickListener{
