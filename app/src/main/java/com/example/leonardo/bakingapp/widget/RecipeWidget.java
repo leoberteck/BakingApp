@@ -9,6 +9,7 @@ import android.widget.RemoteViews;
 
 import com.example.leonardo.bakingapp.R;
 import com.example.leonardo.bakingapp.api.RecipeAPI;
+import com.example.leonardo.bakingapp.api.entity.Ingredient;
 import com.example.leonardo.bakingapp.api.entity.Recipe;
 import com.example.leonardo.bakingapp.util.ResourceUtils;
 import com.example.leonardo.bakingapp.view.RecipeDetailActivity;
@@ -71,22 +72,20 @@ public class RecipeWidget extends AppWidgetProvider {
     }
 
     static String getRecipeText(Recipe recipe, ResourceUtils resourceUtils){
-        StringBuilder text = new StringBuilder();
-        text.append(recipe.getName())
-            .append("\n\n")
-            .append(resourceUtils.getString(R.string.ingredients))
-            .append(" : ")
-            .append(recipe.getIngredients() != null ? recipe.getIngredients().size() : 0)
-            .append("\n")
-            .append(resourceUtils.getString(R.string.steps))
-            .append(" : ")
-            .append(recipe.getSteps() != null ? recipe.getSteps().size() : 0)
-            .append("\n")
-            .append(resourceUtils.getString(R.string.servings))
-            .append(" : ")
-            .append(recipe.getServings())
-            .append("\n");
-        return text.toString();
+        StringBuilder recipeText = new StringBuilder();
+        recipeText.append(recipe.getName()).append("\n")
+                .append("\n")
+                .append(resourceUtils.getString(R.string.ingredients)).append("\n")
+                .append("\n");
+        for (Ingredient ingredient : recipe.getIngredients()) {
+            recipeText.append(ingredient.getIngredient())
+                    .append(" - ")
+                    .append(ingredient.getQuantity())
+                    .append(" ")
+                    .append(ingredient.getMeasure())
+                    .append("\n");
+        }
+        return recipeText.toString();
     }
 
     public static int randInt(int min, int max) {
