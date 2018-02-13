@@ -1,6 +1,7 @@
 package com.example.leonardo.bakingapp.presenter.interfaces;
 
 
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.leonardo.bakingapp.api.entity.Recipe;
@@ -14,6 +15,8 @@ public interface RecipeListMVP {
         void shareRecipe(String s);
 
         void setAdapter(RecyclerView.Adapter recipeListAdapter);
+
+        void showToast(@StringRes int message);
     }
 
     interface RecipeListPresenterInterface extends BasePresenterInterface {

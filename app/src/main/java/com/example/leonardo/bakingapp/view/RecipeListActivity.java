@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.widget.Toast;
 
 import com.example.leonardo.bakingapp.BR;
 import com.example.leonardo.bakingapp.R;
@@ -73,6 +74,11 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListM
     @Override
     public void setAdapter(RecyclerView.Adapter recipeListAdapter) {
         movieGrid.setAdapter(recipeListAdapter);
+    }
+
+    @Override
+    public void showToast(int message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @NonNull

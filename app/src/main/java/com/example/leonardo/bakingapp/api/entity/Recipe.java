@@ -4,6 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.example.leonardo.bakingapp.R;
+import com.example.leonardo.bakingapp.util.ResourceUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +98,30 @@ public class Recipe implements Parcelable {
         } else {
             return null;
         }
+    }
+
+    public String getRecipeAsText(ResourceUtils resourceUtils){
+        StringBuilder recipeText = new StringBuilder();
+        recipeText.append(this.getName()).append("\n")
+                .append("\n")
+                .append(resourceUtils.getString(R.string.ingredients)).append("\n")
+                .append("\n");
+        for (Ingredient ingredient : this.getIngredients()) {
+            recipeText.append(ingredient.getIngredient())
+                    .append(" - ")
+                    .append(ingredient.getQuantity())
+                    .append(" ")
+                    .append(ingredient.getMeasure())
+                    .append("\n");
+        }
+        recipeText.append("\n")
+                .append(resourceUtils.getString(R.string.steps)).append("\n")
+                .append("\n");
+
+        for (Step step : this.getSteps()) {
+            recipeText.append(step.getDescription()).append("\n\n");
+        }
+        return recipeText.toString();
     }
 
     @Override

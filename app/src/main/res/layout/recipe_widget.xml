@@ -1,0 +1,18 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FFF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/widget_margin"
+    android:orientation="vertical"
+    tools:layout_height="120dp"
+    tools:layout_width="120dp">
+
+    <TextView
+        android:id="@+id/recipeText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:ellipsize="end"/>
+
+</FrameLayout>
