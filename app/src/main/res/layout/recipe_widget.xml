@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/widget_margin"
     android:orientation="vertical"
-    tools:layout_height="120dp"
+    tools:layout_height="250dp"
     tools:layout_width="120dp">
 
     <TextView
