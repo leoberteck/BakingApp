@@ -21,6 +21,18 @@ public class RecipeStepPresenter extends BaseObservable implements RecipeStepMVP
     private int backVisible;
     private RecipeStepMVP.RecipeStepFragmentInterface fragment;
 
+    private long currentPlayerPosition = 0;
+
+    @Override
+    public long getCurrentPlayerPosition() {
+        return currentPlayerPosition;
+    }
+
+    @Override
+    public void setCurrentPlayerPosition(long currentPlayerPosition) {
+        this.currentPlayerPosition = currentPlayerPosition;
+    }
+
     public RecipeStepPresenter(
         @NonNull Step step
         , @NonNull RecipeStepMVP.StepNavigationClickListener navigationClickListener

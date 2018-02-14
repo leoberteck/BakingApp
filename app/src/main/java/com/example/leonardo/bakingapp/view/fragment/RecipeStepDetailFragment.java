@@ -47,12 +47,11 @@ public class RecipeStepDetailFragment extends Fragment implements RecipeStepMVP.
         if(binding != null){
             binding.setPresenter(presenter);
             binding.notifyChange();
-            releasePlayer();
-            Uri uri = presenter.getMediaUri();
-            if(uri != null){
-                initPlayer(presenter.getMediaUri());
-            }
         }
+    }
+
+    public RecipeStepMVP.RecipeStepPresenterInterface getPresenter(){
+        return binding.getPresenter();
     }
 
     @Nullable
@@ -71,13 +70,8 @@ public class RecipeStepDetailFragment extends Fragment implements RecipeStepMVP.
         return view;
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
     private void initPlayer(Uri mediaUri) {
-        if (mExoPlayer == null) {
+        if (mExoPlayer == null && mediaUri != null) {
             // Create an instance of the ExoPlayer.
             TrackSelector trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
@@ -99,17 +93,46 @@ public class RecipeStepDetailFragment extends Fragment implements RecipeStepMVP.
                 , new DefaultExtractorsFactory()
                 , null, null);
             mExoPlayer.prepare(mediaSource);
+            mExoPlayer.seekTo(getPresenter().getCurrentPlayerPosition());
+            mExoPlayer.setPlayWhenReady(true);
         }
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        releasePlayer();
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Util.SDK_INT > 23) {
+            initPlayer(getPresenter().getMediaUri());
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if ((Util.SDK_INT <= 23 || mExoPlayer == null)) {
+            initPlayer(getPresenter().getMediaUri());
+        }
     }
 
     private void releasePlayer(){
         if(mExoPlayer != null){
+            getPresenter().setCurrentPlayerPosition(mExoPlayer.getCurrentPosition());
             mExoPlayer.stop();
             mExoPlayer.release();
             mExoPlayer = null;

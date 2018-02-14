@@ -119,7 +119,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
                 transaction.remove(fragment);
                 fragment = newInstance;
             }
-
         }
         transaction
             .replace(container, fragment, tag)

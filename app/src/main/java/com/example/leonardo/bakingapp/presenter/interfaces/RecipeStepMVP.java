@@ -13,6 +13,10 @@ public interface RecipeStepMVP {
 
     interface RecipeStepPresenterInterface extends BasePresenterInterface {
 
+        long getCurrentPlayerPosition();
+
+        void setCurrentPlayerPosition(long currentPlayerPosition);
+
         void setFragment(RecipeStepFragmentInterface fragment);
 
         @Nullable
