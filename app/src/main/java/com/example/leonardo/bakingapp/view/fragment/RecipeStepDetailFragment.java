@@ -94,7 +94,7 @@ public class RecipeStepDetailFragment extends Fragment implements RecipeStepMVP.
                 , null, null);
             mExoPlayer.prepare(mediaSource);
             mExoPlayer.seekTo(getPresenter().getCurrentPlayerPosition());
-            mExoPlayer.setPlayWhenReady(true);
+            mExoPlayer.setPlayWhenReady(getPresenter().getCurrentPlayingState());
         }
     }
 
@@ -118,7 +118,7 @@ public class RecipeStepDetailFragment extends Fragment implements RecipeStepMVP.
     public void onStart() {
         super.onStart();
         if (Util.SDK_INT > 23) {
-            initPlayer(getPresenter().getMediaUri());
+            initPlayer(getPresenter().getVideoUri());
         }
     }
 
@@ -126,13 +126,14 @@ public class RecipeStepDetailFragment extends Fragment implements RecipeStepMVP.
     public void onResume() {
         super.onResume();
         if ((Util.SDK_INT <= 23 || mExoPlayer == null)) {
-            initPlayer(getPresenter().getMediaUri());
+            initPlayer(getPresenter().getVideoUri());
         }
     }
 
     private void releasePlayer(){
         if(mExoPlayer != null){
             getPresenter().setCurrentPlayerPosition(mExoPlayer.getCurrentPosition());
+            getPresenter().setCurrentPlayingState(mExoPlayer.getPlayWhenReady());
             mExoPlayer.stop();
             mExoPlayer.release();
             mExoPlayer = null;

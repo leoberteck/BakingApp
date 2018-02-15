@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.leonardo.bakingapp.R;
@@ -39,6 +40,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         if(findViewById(R.id.fragment_master) != null){
             masterFragment = R.id.fragment_master;
             detailFragment = R.id.fragment_detail;
@@ -60,6 +63,17 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
@@ -77,7 +91,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.setActivity(null);
+        if(presenter != null){
+            presenter.setActivity(null);
+        }
         if(isFinishing()){
             presenter = null;
         }

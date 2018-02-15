@@ -21,7 +21,7 @@
         </activity>
         <activity
             android:name=".view.RecipeDetailActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/AppTheme"/>
 
         <receiver android:name=".widget.RecipeWidget">
             <intent-filter>
@@ -32,6 +32,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/recipe_widget_info" />
         </receiver>
+        <service android:name=".widget.services.RecipeWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>

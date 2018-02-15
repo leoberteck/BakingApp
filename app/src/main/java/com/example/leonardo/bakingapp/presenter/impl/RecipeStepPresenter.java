@@ -22,6 +22,7 @@ public class RecipeStepPresenter extends BaseObservable implements RecipeStepMVP
     private RecipeStepMVP.RecipeStepFragmentInterface fragment;
 
     private long currentPlayerPosition = 0;
+    private boolean currentPlayingState = true;
 
     @Override
     public long getCurrentPlayerPosition() {
@@ -52,9 +53,9 @@ public class RecipeStepPresenter extends BaseObservable implements RecipeStepMVP
 
     @Override
     @Nullable
-    public Uri getMediaUri(){
+    public Uri getVideoUri(){
         Uri uri = null;
-        String url = step.getMediaURL();
+        String url = step.getVideoURL();
         if(!TextUtils.isEmpty(url)){
             uri = Uri.parse(url);
         }
@@ -84,5 +85,15 @@ public class RecipeStepPresenter extends BaseObservable implements RecipeStepMVP
     @Override
     public RecipeStepMVP.StepNavigationClickListener getListener() {
         return navigationClickListener;
+    }
+
+    @Override
+    public boolean getCurrentPlayingState() {
+        return currentPlayingState;
+    }
+
+    @Override
+    public void setCurrentPlayingState(boolean playWhenReady) {
+        currentPlayingState = playWhenReady;
     }
 }

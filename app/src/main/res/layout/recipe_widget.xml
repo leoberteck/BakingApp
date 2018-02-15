@@ -1,18 +1,55 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#FFF"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/widget_margin"
     android:orientation="vertical"
     tools:layout_height="250dp"
-    tools:layout_width="120dp">
+    tools:layout_width="180dp">
 
     <TextView
-        android:id="@+id/recipeText"
+        style="@style/ImportanceText"
+        android:id="@+id/recipeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        tools:text="Recipe name"
+        android:layout_margin="10dp"/>
+
+    <ListView
+        android:id="@+id/ingredientsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:ellipsize="end"/>
+        android:layout_below="@id/recipeName"
+        android:layout_above="@id/controlsLayout"/>
 
-</FrameLayout>
+    <FrameLayout
+        android:id="@+id/controlsLayout"
+        android:background="@color/colorToolbarLight"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/button_open_recipe"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:text="@string/open"
+            android:textColor="@color/colorToolbarIconLight" />
+
+        <Button
+            android:id="@+id/button_next"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:drawableEnd="@drawable/ic_chevron_right_gray_24dp"
+            android:text="@string/next"
+            android:textColor="@color/colorToolbarIconLight" />
+    </FrameLayout>
+
+</RelativeLayout>

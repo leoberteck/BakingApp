@@ -20,7 +20,7 @@ public interface RecipeStepMVP {
         void setFragment(RecipeStepFragmentInterface fragment);
 
         @Nullable
-        Uri getMediaUri();
+        Uri getVideoUri();
 
         @Bindable
         String getStepShortDescription();
@@ -34,6 +34,10 @@ public interface RecipeStepMVP {
 
         @Bindable
         StepNavigationClickListener getListener();
+
+        boolean getCurrentPlayingState();
+
+        void setCurrentPlayingState(boolean playWhenReady);
     }
 
     interface StepNavigationClickListener{
